@@ -7,6 +7,8 @@ const User = require("../models/User");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/sendEmail");
+const {MAIN_PATH_UPLOAD} = require('../utils/globals');
+const {errorSMS} = require("../utils/globals");
 
 // @desc     Get all users
 // @route    GET /api/v1/users
@@ -22,7 +24,10 @@ exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   res.status(200).json({
     success: true,
-    data: user
+    data: [
+      user
+    ],
+    details: errorSMS["100"]
   });
 });
 
@@ -33,7 +38,10 @@ exports.createUser = asyncHandler(async (req, res, next) => {
   const user = await User.create(req.body);
   res.status(201).json({
     success: true,
-    data: user
+    data: [
+      user
+    ],
+    details: errorSMS["101"]
   });
 });
 
@@ -43,12 +51,15 @@ exports.createUser = asyncHandler(async (req, res, next) => {
 exports.updateUser = asyncHandler(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
 
   res.status(200).json({
     success: true,
-    data: user
+    data: [
+      user
+    ],
+    details: errorSMS["102"]
   });
 });
 
@@ -59,6 +70,7 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
   await User.findByIdAndDelete(req.params.id);
   res.status(200).json({
     success: true,
-    data: {}
+    data: [],
+    details: errorSMS["103"]
   });
 });

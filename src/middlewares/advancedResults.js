@@ -1,3 +1,4 @@
+const {errorSMS} = require("../utils/globals");
 const advancedResults = (model, populate) => async (req, res, next) => {
     let query = req.query;
   
@@ -71,9 +72,10 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   
     res.advancedResults = {
       success: true,
+      details: errorSMS["100"],
+      data: results,
       count: results.length,
-      pagination,
-      data: results
+      pagination
     };
     next();
   };

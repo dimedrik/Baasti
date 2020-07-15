@@ -9,7 +9,7 @@ const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/sendEmail");
 const User = require("../models/User");
-
+const {errorSMS} = require("../utils/globals");
 //const sendEmail = require("../utils/sendEmail");
 
 // @desc     Register user
@@ -75,7 +75,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: {}
+    data: []
   });
 });
 
@@ -87,7 +87,10 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: user
+    details: errorSMS["100"],
+    data: [
+      user
+    ]
   });
 });
 
@@ -108,7 +111,10 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: user
+    details: errorSMS["106"],
+    data: [
+      user
+    ]
   });
 });
 
@@ -159,7 +165,10 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     });
     res.status(200).json({
       success: true,
-      data: resetUrl
+      details: errorSMS["105"],
+      data: [
+        resetUrl
+      ]
     });
   } catch (err) {
     console.log(err);
@@ -223,6 +232,9 @@ const sendTokenResponse = (user, statusCode, res) => {
   console.log(options);
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
-    token
+    details: errorSMS["104"],
+    data : [
+      token
+    ]
   });
 };
