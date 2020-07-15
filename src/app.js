@@ -22,11 +22,16 @@ const errorHandler = require("./middlewares/error");
 // Routes imports
 const auth = require("./routes/auth");
 const users = require("./routes/users");
+const uploadGateway  = require('./routes/uploadGateWayRoute');
+const uploadGatewayCtrl = require('./controllers/uploadGateWay');
 
 // Load env vars
 dotenv.config({
   path: "./config/config.env"
 });
+
+
+
 
 // Connect to database
 connectDB();
@@ -87,3 +92,6 @@ process.on("unhandledRejection", (err, promise) => {
   // Close server and exit process
   server.close(() => process.exit(1));
 });
+
+
+//Creation of pipeline for 
