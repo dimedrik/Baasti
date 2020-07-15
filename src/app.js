@@ -22,9 +22,8 @@ const errorHandler = require("./middlewares/error");
 // Routes imports
 const auth = require("./routes/auth");
 const users = require("./routes/users");
-const uploadGateway  = require('./routes/uploadGateWayRoute');
-const uploadGatewayCtrl = require('./controllers/uploadGateWay');
-
+const upload = require('./routes/uploadroute');
+const {MAIN_PATH_UPLOAD} = require('./utils/globals');
 // Load env vars
 dotenv.config({
   path: "./config/config.env"
@@ -75,9 +74,10 @@ app.use(express.static(path.join(__dirname, "public")));
 // Mount routes
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
+app.use("/api/v1/upload", upload);
+app.use(express.static(MAIN_PATH_UPLOAD));
 
 app.use(errorHandler);
-
 const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => {
