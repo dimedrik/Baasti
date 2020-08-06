@@ -44,6 +44,11 @@ app.use(helmet());
 app.use(cors());
 app.use(cookieParser());
 
+console.log(
+  `process.env.NODE_ENV: ${process.env.NODE_ENV}`
+    .cyan.underline.bold
+);
+
 // Setting up morgan for request logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -92,6 +97,5 @@ process.on("unhandledRejection", (err, promise) => {
   // Close server and exit process
   server.close(() => process.exit(1));
 });
-
 
 //Creation of pipeline for 

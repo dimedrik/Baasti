@@ -6,6 +6,9 @@
 
  exports.MAIN_PATH_UPLOAD = "images";
  exports.IMG_NAME = "APP_NAME";
+ /**
+  * Créer un code unique pour le success.
+  */
 exports.errorSMS = {
     "100" : {code:100,message:"All the data  has been returned..."},
     "101" : {code:101,message:"User created successfully..."},
