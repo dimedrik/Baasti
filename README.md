@@ -24,6 +24,10 @@ cd code33129
 npm install
 npm run prod
 ```
+These are supplementary packages that will be usefull when runing the project:
+* npm install pm2 -g
+
+* npm install artillery -g
 
 In dev, you will only run
 
