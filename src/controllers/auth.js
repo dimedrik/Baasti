@@ -18,6 +18,7 @@ const {errorSMS} = require("../utils/globals");
 exports.register = asyncHandler(async (req, res, next) => {
   // Extract only necessary fields from request body
   const { name, username, email, password, role } = req.body;
+  console.log(name, username, email, password, role)
 
   // Create user
   const user = await User.create({
@@ -229,13 +230,17 @@ const sendTokenResponse = (user, statusCode, res) => {
     options.secure = true;
   }
 
+  //remove not needed informations
+  user.password = undefined
+  user.__v =  undefined
+
   console.log(options);
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
     details: errorSMS["104"],
-    data : [    
-      user  
+    data : [
+      user
     ],
-    token
+    token: token
   });
 };
