@@ -57,6 +57,15 @@ Explain what these tests test and why
 Give an example
 ```
 
+
+### Start mongo DB locally
+
+Explain what these tests test and why
+
+```
+net start MongoDB
+```
+
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
