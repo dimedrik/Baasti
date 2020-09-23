@@ -4,7 +4,6 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   
     // Copy req.query
     const reqQuery = { ...query };
-  
     // Exclude fields with special meaning to mongoose, we can add another thing here
     const removeFields = ["select", "sort", "page", "limit"];
   
@@ -28,7 +27,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
       const fields = req.query.select.split(",").join(" ");
       query = query.select(fields);
     }
-  
+    
     // Sort
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
@@ -72,7 +71,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   
     res.advancedResults = {
       success: true,
-      details: errorSMS["100"],
+      details: errorSMS["200"],
       data: results,
       count: results.length,
       pagination

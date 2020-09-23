@@ -233,8 +233,9 @@ const sendTokenResponse = (user, statusCode, res) => {
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
     details: errorSMS["104"],
-    data : [
-      token
-    ]
+    data : [    
+      user  
+    ],
+    token
   });
 };

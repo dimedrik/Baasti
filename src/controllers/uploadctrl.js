@@ -18,7 +18,7 @@ exports.uploadFile = asyncHandler(async (req, res, next) => {
 exports.upload = asyncHandler(async(req, res, next) => {
   const file = req.file
   if (!file) {
-    const error = new ErrorResponse(errorSMS[500].message,errorSMS[500].code);
+    const error = new ErrorResponse(errorSMS[502].message,errorSMS[502].code);
     return next(error)
   }else if(file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)){
     let fullUrl = req.protocol + '://' + req.get('host');
@@ -44,7 +44,7 @@ exports.uploadMulti = asyncHandler(async(req, res, next) => {
   const files = req.files;
   //util.inspect(files, {showHidden: false, depth: null})
   if (!Object.keys(files).length) {
-    const error = new ErrorResponse(errorSMS[500].message,errorSMS[500].code);
+    const error = new ErrorResponse(errorSMS[502].message,errorSMS[502].code);
     return next(error)
   }//else if(files.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)){
     res.send(files)

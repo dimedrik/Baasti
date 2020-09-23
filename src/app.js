@@ -23,6 +23,8 @@ const errorHandler = require("./middlewares/error");
 const auth = require("./routes/auth");
 const users = require("./routes/users");
 const upload = require('./routes/uploadroute');
+const comicType = require('./routes/comicType');
+const comic = require('./routes/comic');
 const {MAIN_PATH_UPLOAD} = require('./utils/globals');
 // Load env vars
 dotenv.config({
@@ -80,6 +82,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/upload", upload);
+app.use("/api/v1/comics_types",comicType);
+app.use("/api/v1/comics",comic);
 app.use(express.static(MAIN_PATH_UPLOAD));
 
 app.use(errorHandler);

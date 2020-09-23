@@ -17,8 +17,10 @@ exports.errorSMS = {
     "104" : {code:104,message:"User token sent successfully..."},
     "105" : {code:105,message:"Mail for reseting your password has been sent successfully..."},
     "106" : {code:106,message:"User successfully apdated..."},
-    "500" : {code:500,message:"Please select a file..."},
+    "502" : {code:502,message:"Please select a file..."},
     "501" : {code:501,message:"Please upload only an image file..."},
     "503" : {code:503,message:"File uploaded successfully..."},
+    "200" : {code:200,message:"Successfully done the process..."},
+    "500" : {code:500,message:"An error occured while the process..."},
 }
   
