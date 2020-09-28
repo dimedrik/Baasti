@@ -1,6 +1,3 @@
-// Loading nodejs core modules
-const User = require('../models/User');
-const ComicType = require('../models/ComicType');
 // Loading npm modules
 const mongoose = require("mongoose");
 
