@@ -11,6 +11,11 @@ const ComicSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  num_of_likes:{
+    type: Number,
+    trim:true,
+    default:0
+  },
   cover: {
     type: String,
     trim: true
