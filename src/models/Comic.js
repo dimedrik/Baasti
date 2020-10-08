@@ -28,6 +28,10 @@ const ComicSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId, 
     ref: 'ComicType' 
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  },
   createdAt: {
     type: Date,
     default: Date.now
