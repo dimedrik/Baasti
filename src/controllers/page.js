@@ -7,6 +7,7 @@
 
 // Load personal modules
 const Page = require("../models/Page");
+const Comic = require("../models/Comic");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const {errorSMS} = require("../utils/globals");
@@ -38,6 +39,8 @@ exports.getPages = asyncHandler(async (req, res, next) => {
   // @access   Private/drawer
   exports.createPage = asyncHandler(async (req, res, next) => {
     const page = await Page.create(req.body);
+    //update comic updatedDate field  
+    const comic = await Comic.findByIdAndUpdate(req.body.id_comic, {"updatedAt":Date.now()},{});
     res.status(201).json({
       success: true,
       data: [
