@@ -11,13 +11,20 @@ const Comic = require("../models/Comic");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const {errorSMS} = require("../utils/globals");
+const _ =  require('lodash')
 
 
 // @desc     Get all pages of a chapter
 // @route    GET /api/v1/pages
 // @access   Everybody
 exports.getPages = asyncHandler(async (req, res, next) => {
-    res.status(200).json(res.advancedResults);
+    pages = await Page.find({'id_chapter': req.query.id_chapter})
+    pages = _.orderBy(pages, ['page_number'], ['asc'])
+    res.status(200).json({
+      success: true,
+      data: pages,
+      details: errorSMS["200"]
+    });
   });
   
   // @desc     Get single page of a chapter
