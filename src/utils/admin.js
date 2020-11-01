@@ -67,4 +67,19 @@ const adminBro = new AdminBro({
   ],
 })
 
-module.exports = adminRouter = AdminBroExpress.buildRouter(adminBro)
+// module.exports = adminRouter = AdminBroExpress.buildRouter(adminBro)
+module.exports = adminRouter = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
+  authenticate: async (email, password) => {
+    console.log(email)
+    const user = await User.findOne({email: email}).select("+password");
+      if (user) {
+        const isPasswordMatch = await user.matchPassword(password);
+        console.log(isPasswordMatch)
+        if (isPasswordMatch && user.role == 'admin') {
+          return user
+        }
+      }
+    return false
+  },
+  cookiePassword: 'session Key',
+})
