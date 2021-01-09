@@ -34,12 +34,34 @@ exports.getComics = asyncHandler(async (req, res, next) => {
       details: errorSMS["200"]
     });
   });
+
+
+  exports.getPopular = asyncHandler(async (req, res, next) =>{
+    const comics = await Comic.find({})
+    console.log(comics)
+    res.status(200).json({
+      success: true,
+      data: comics,
+      details: errorSMS["200"]
+    });
+  })
+
+
+  exports.getRecent = asyncHandler(async (req, res, next) =>{
+    const comics = await Comic.find({}).sort('-updatedAt')
+    console.log(comics)
+    res.status(200).json({
+      success: true,
+      data: comics,
+      details: errorSMS["200"]
+    });
+  })
   
   // @desc     Create Comics strip
   // @route    POST /api/v1/comics
   // @access   Private/drawer
   exports.createComic = asyncHandler(async (req, res, next) => {
-    const comic = await Comic.create(req.body);
+    const comic = await Comic.create(req.body).sort('-num_of_likes');
     res.status(201).json({
       success: true,
       data: [
