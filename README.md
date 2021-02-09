@@ -83,7 +83,6 @@ We use [GitLab](https://gitlab.com/) for versioning. For the versions available.
 ## Authors
 
 * **Dimedrik Feudjieu** - *Initial work*
-* **Saint Germes**
 
 ## License
 
