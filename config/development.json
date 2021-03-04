@@ -13,8 +13,8 @@
   "smtp": {
     "host": "smtp.mailtrap.io",
     "port": 2525,
-    "email": "",
-    "password": "",
+    "email": "2b5d38f4d8b4ad",
+    "password": "9dbc1b7e37f5ad",
     "from_email": "noreply@code33129.io",
     "from_name": "Code33129"
   }
