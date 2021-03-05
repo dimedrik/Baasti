@@ -7,7 +7,7 @@ exports.uploadFile = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     details: errorSMS["503"],
-    data: []
+    data: {}
   });
 });
 
@@ -25,7 +25,7 @@ exports.upload = asyncHandler(async(req, res, next) => {
     res.status(200).json({
       success: true,
       details: errorSMS["503"],
-      data: [
+      data: 
         {
           "encoding": file['encoding'],
           "mimetype": file['mimetype'],
@@ -33,7 +33,6 @@ exports.upload = asyncHandler(async(req, res, next) => {
           "size": file['size'],
           "url": fullUrl +file.path.split(MAIN_PATH_UPLOAD)[1]
         }
-      ]
     });
   }
   const error = new ErrorResponse(errorSMS[501].message,errorSMS[501].code);

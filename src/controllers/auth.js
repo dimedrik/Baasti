@@ -76,7 +76,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: []
+    data: {}
   });
 });
 
@@ -89,9 +89,7 @@ exports.getMe = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     details: errorSMS["100"],
-    data: [
-      user
-    ]
+    data: user
   });
 });
 
@@ -113,9 +111,7 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     details: errorSMS["106"],
-    data: [
-      user
-    ]
+    data: user
   });
 });
 
@@ -167,9 +163,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     res.status(200).json({
       success: true,
       details: errorSMS["105"],
-      data: [
-        resetUrl
-      ]
+      data: resetUrl
     });
   } catch (err) {
     console.log(err);
@@ -238,9 +232,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
     details: errorSMS["104"],
-    data : [
-      user
-    ],
+    data : user,
     token: token
   });
 };

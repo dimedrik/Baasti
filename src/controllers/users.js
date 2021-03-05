@@ -24,9 +24,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   res.status(200).json({
     success: true,
-    data: [
-      user
-    ],
+    data: user,
     details: errorSMS["100"]
   });
 });
@@ -38,9 +36,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
   const user = await User.create(req.body);
   res.status(201).json({
     success: true,
-    data: [
-      user
-    ],
+    data: user,
     details: errorSMS["101"]
   });
 });
@@ -56,9 +52,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: [
-      user
-    ],
+    data: user,
     details: errorSMS["102"]
   });
 });
@@ -70,7 +64,7 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
   await User.findByIdAndDelete(req.params.id);
   res.status(200).json({
     success: true,
-    data: [],
+    data: {},
     details: errorSMS["103"]
   });
 });

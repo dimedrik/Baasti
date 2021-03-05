@@ -28,9 +28,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
     const comic = await Comic.findById(req.params.id).populate('comic_type',['_id','title','color']);
     res.status(200).json({
       success: true,
-      data: [
-        comic
-      ],
+      data: comic,
       details: errorSMS["200"]
     });
   });
@@ -64,9 +62,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
     const comic = await Comic.create(req.body).sort('-num_of_likes');
     res.status(201).json({
       success: true,
-      data: [
-        comic
-      ],
+      data: comic,
       details: errorSMS["200"]
     });
   });
@@ -82,9 +78,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
   
     res.status(200).json({
       success: true,
-      data: [
-        comic
-      ],
+      data: comic,
       details: errorSMS["200"]
     });
   });
@@ -96,7 +90,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
     await Comic.findByIdAndDelete(req.params.id);
     res.status(200).json({
       success: true,
-      data: [],
+      data: {},
       details: errorSMS["200"]
     });
   });
@@ -122,7 +116,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
       await LikeComic.findOneAndDelete(req.body);
             res.status(200).json({
               success: true,
-              data: [],
+              data: {},
               details: errorSMS["200"]
             });
     }else{
@@ -130,9 +124,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
       const likeComic = await LikeComic.create(req.body);
             res.status(201).json({
               success: true,
-              data: [
-                likeComic
-              ],
+              data: likeComic,
               details: errorSMS["200"]
             });
     }
@@ -145,7 +137,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
     await LikeComic.findByIdAndDelete(req.params.id);
     res.status(200).json({
       success: true,
-      data: [],
+      data: {},
       details: errorSMS["200"]
     });
   });
@@ -168,16 +160,14 @@ exports.addUserFavComic = asyncHandler(async (req, res, next) => {
     await UserFavComic.findOneAndDelete(req.body);
           res.status(200).json({
             success: true,
-            data: [],
+            data: {},
             details: errorSMS["200"]
           });
   }else{
     const userFavComic = await UserFavComic.create(req.body);
           res.status(201).json({
             success: true,
-            data: [
-              userFavComic
-            ],
+            data: userFavComic,
             details: errorSMS["200"]
           });
   }

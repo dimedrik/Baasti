@@ -25,9 +25,7 @@ exports.getComicTypes = asyncHandler(async (req, res, next) => {
     const comicType = await ComicType.findById(req.params.id);
     res.status(200).json({
       success: true,
-      data: [
-        comicType
-      ],
+      data: comicType,
       details: errorSMS["200"]
     });
   });
@@ -39,9 +37,7 @@ exports.getComicTypes = asyncHandler(async (req, res, next) => {
     const comicType = await ComicType.create(req.body);
     res.status(201).json({
       success: true,
-      data: [
-        ComicType
-      ],
+      data: comicType,
       details: errorSMS["200"]
     });
   });
@@ -57,9 +53,7 @@ exports.getComicTypes = asyncHandler(async (req, res, next) => {
   
     res.status(200).json({
       success: true,
-      data: [
-        user
-      ],
+      data: user,
       details: errorSMS["200"]
     });
   });
@@ -71,7 +65,7 @@ exports.getComicTypes = asyncHandler(async (req, res, next) => {
     await ComicType.findByIdAndDelete(req.params.id);
     res.status(200).json({
       success: true,
-      data: [],
+      data: {},
       details: errorSMS["200"]
     });
   });
