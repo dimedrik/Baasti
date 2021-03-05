@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prod": "NODE_ENV=production pm2 start src/app.js",
-    "dev": "node src/app"
+    "start": "NODE_ENV=production pm2 start src/app.js",
+    "dev": "nodemon src/app"
   },
   "repository": {
     "type": "git",

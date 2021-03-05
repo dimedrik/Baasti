@@ -9,7 +9,7 @@ const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/sendEmail");
 const User = require("../models/User");
-const {errorSMS} = require("../utils/globals");
+const { errorSMS } = require("../utils/globals");
 //const sendEmail = require("../utils/sendEmail");
 
 // @desc     Register user
@@ -18,7 +18,7 @@ const {errorSMS} = require("../utils/globals");
 exports.register = asyncHandler(async (req, res, next) => {
   // Extract only necessary fields from request body
   const { name, username, email, password, role } = req.body;
-  console.log(name, username, email, password, role)
+  console.log(name, username, email, password, role);
 
   // Create user
   const user = await User.create({
@@ -89,7 +89,11 @@ exports.getMe = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     details: errorSMS["100"],
+<<<<<<< HEAD
     data: user
+=======
+    data: [user]
+>>>>>>> 00131c1392d84fa3be99fe096d60bd4663b28e1a
   });
 });
 
@@ -108,10 +112,17 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
     runValidators: true
   });
 
+  //remove unwanted informations
+  user.__v = undefined;
+
   res.status(200).json({
     success: true,
     details: errorSMS["106"],
+<<<<<<< HEAD
     data: user
+=======
+    data: [user]
+>>>>>>> 00131c1392d84fa3be99fe096d60bd4663b28e1a
   });
 });
 
@@ -224,15 +235,26 @@ const sendTokenResponse = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  //remove not needed informations
-  user.password = undefined
-  user.__v =  undefined
+  //remove unwanted informations
+  user.__v = undefined;
 
   console.log(options);
+<<<<<<< HEAD
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
     details: errorSMS["104"],
     data : user,
     token: token
   });
+=======
+  res
+    .status(statusCode)
+    .cookie("token", token, options)
+    .json({
+      success: true,
+      details: errorSMS["104"],
+      data: [user],
+      token: token
+    });
+>>>>>>> 00131c1392d84fa3be99fe096d60bd4663b28e1a
 };
