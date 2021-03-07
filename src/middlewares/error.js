@@ -25,7 +25,7 @@ const errorHandler = (err, req, res, next) => {
   res.status(200).json({
     success: false,
     details: error,
-    data:[]
+    data:{}
   });
 };
 

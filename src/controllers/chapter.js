@@ -27,9 +27,7 @@ exports.getChapters = asyncHandler(async (req, res, next) => {
     const chapter = await Chapter.findById(req.params.id);
     res.status(200).json({
       success: true,
-      data: [
-        chapter
-      ],
+      data: chapter,
       details: errorSMS["200"]
     });
   });
@@ -41,9 +39,7 @@ exports.getChapters = asyncHandler(async (req, res, next) => {
     const chapter = await Chapter.create(req.body);
     res.status(201).json({
       success: true,
-      data: [
-        chapter
-      ],
+      data: chapter,
       details: errorSMS["200"]
     });
   });
@@ -55,9 +51,7 @@ exports.getChapters = asyncHandler(async (req, res, next) => {
     const num = await Chapter.countDocuments({id_comic : req.params.id});
     res.status(201).json({
       success: true,
-      data: [
-        {"number" : num}
-      ],
+      data: {"number" : num},
       details: errorSMS["200"]
     });
   });
@@ -73,9 +67,7 @@ exports.getChapters = asyncHandler(async (req, res, next) => {
   
     res.status(200).json({
       success: true,
-      data: [
-        chapter
-      ],
+      data: chapter,
       details: errorSMS["200"]
     });
   });
@@ -87,7 +79,7 @@ exports.getChapters = asyncHandler(async (req, res, next) => {
     await Chapter.findByIdAndDelete(req.params.id);
     res.status(200).json({
       success: true,
-      data: [],
+      data: {},
       details: errorSMS["200"]
     });
   });
@@ -112,7 +104,7 @@ exports.likeChapter = asyncHandler(async (req, res, next) => {
     await LikeChapter.findOneAndDelete(req.body);
           res.status(200).json({
             success: true,
-            data: [],
+            data: {},
             details: errorSMS["200"]
           });
   }else{
@@ -121,9 +113,7 @@ exports.likeChapter = asyncHandler(async (req, res, next) => {
     const likeChapter = await LikeChapter.create(req.body);
           res.status(201).json({
             success: true,
-            data: [
-              likeChapter
-            ],
+            data: likeChapter,
             details: errorSMS["200"]
           });
   }

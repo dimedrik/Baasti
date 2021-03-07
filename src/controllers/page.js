@@ -34,9 +34,7 @@ exports.getPages = asyncHandler(async (req, res, next) => {
     const page = await Page.findById(req.params.id);
     res.status(200).json({
       success: true,
-      data: [
-        page
-      ],
+      data: page,
       details: errorSMS["200"]
     });
   });
@@ -50,9 +48,7 @@ exports.getPages = asyncHandler(async (req, res, next) => {
     const comic = await Comic.findByIdAndUpdate(req.body.id_comic, {"updatedAt":Date.now()},{});
     res.status(201).json({
       success: true,
-      data: [
-        page
-      ],
+      data: page,
       details: errorSMS["200"]
     });
   });
@@ -65,7 +61,7 @@ exports.getPages = asyncHandler(async (req, res, next) => {
     await Page.findByIdAndDelete(req.params.id);
     res.status(200).json({
       success: true,
-      data: [],
+      data: {},
       details: errorSMS["200"]
     });
   });

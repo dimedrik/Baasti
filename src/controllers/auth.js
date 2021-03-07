@@ -9,7 +9,7 @@ const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/sendEmail");
 const User = require("../models/User");
-const { errorSMS } = require("../utils/globals");
+const {errorSMS} = require("../utils/globals");
 //const sendEmail = require("../utils/sendEmail");
 
 // @desc     Register user
@@ -18,7 +18,7 @@ const { errorSMS } = require("../utils/globals");
 exports.register = asyncHandler(async (req, res, next) => {
   // Extract only necessary fields from request body
   const { name, username, email, password, role } = req.body;
-  console.log(name, username, email, password, role);
+  console.log(name, username, email, password, role)
 
   // Create user
   const user = await User.create({
@@ -76,7 +76,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: []
+    data: {}
   });
 });
 
@@ -89,7 +89,7 @@ exports.getMe = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     details: errorSMS["100"],
-    data: [user]
+    data: user
   });
 });
 
@@ -108,13 +108,10 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
     runValidators: true
   });
 
-  //remove unwanted informations
-  user.__v = undefined;
-
   res.status(200).json({
     success: true,
     details: errorSMS["106"],
-    data: [user]
+    data: user
   });
 });
 
@@ -166,7 +163,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     res.status(200).json({
       success: true,
       details: errorSMS["105"],
-      data: [resetUrl]
+      data: resetUrl
     });
   } catch (err) {
     console.log(err);
@@ -227,17 +224,15 @@ const sendTokenResponse = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  //remove unwanted informations
-  user.__v = undefined;
+  //remove not needed informations
+  user.password = undefined
+  user.__v =  undefined
 
   console.log(options);
-  res
-    .status(statusCode)
-    .cookie("token", token, options)
-    .json({
-      success: true,
-      details: errorSMS["104"],
-      data: [user],
-      token: token
-    });
+  res.status(statusCode).cookie("token", token, options).json({
+    success: true,
+    details: errorSMS["104"],
+    data : user,
+    token: token
+  });
 };
