@@ -1,4 +1,5 @@
 const ErrorResponse = require("../utils/errorResponse");
+const { errorSMS } = require("../utils/globals");
 
 /**
  *
@@ -13,18 +14,24 @@ const errorHandler = (err, req, res, next) => {
 
   // Mongoose bad ObjectId
   if (err.name === "CastError") {
-    const message = `Resource not found with id of ${err.value}`;
+    const message = {
+      code: 108,
+      message: `Resource not found with id of ${err.value}`
+    };
     error = new ErrorResponse(message, 404);
   }
   // Mongoose duplicate key
   else if (err.code === 11000) {
-    const message = "Duplicate field value entered";
+    const message = { code: 107, message: "Duplicate field value entered" };
     error = new ErrorResponse(message, 400);
   }
 
   res.status(error.statusCode || 500).json({
     success: false,
-    details: error.message || "Server Error",
+    details: error.msg || {
+      code: 109,
+      message: error.message || "Server Error"
+    },
     data: {}
   });
 };
