@@ -1,5 +1,3 @@
-// Load nodejs core modules
-
 // Load npm modules
 const express = require("express");
 

@@ -1,9 +1,7 @@
-// Loading nodejs core modules
-
 // Loading npm modules
 const mongoose = require("mongoose");
 
-const LikeChapterSchema = new mongoose.Schema({
+const ReadChapterSchema = new mongoose.Schema({
     id_comic: {
         type: mongoose.Schema.ObjectId, 
         ref: 'Comic' 
@@ -23,4 +21,4 @@ const LikeChapterSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model("LikeChapter", LikeChapterSchema);
+module.exports = mongoose.model("ReadChapter", ReadChapterSchema);
