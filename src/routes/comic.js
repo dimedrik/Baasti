@@ -20,7 +20,9 @@ router
   .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getComics)
   .post(comicCtrl.createComic);
 // router.route("/recent").get(comicCtrl.getRecent);
-// router.route("/popular").get(comicCtrl.getPopular);
+router
+  .route("/popular")
+  .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getPopular);
 router
   .route("/like")
   .get(advancedResults(LikeComic), comicCtrl.getLikeComic)

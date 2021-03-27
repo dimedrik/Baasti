@@ -36,15 +36,15 @@ exports.getComic = asyncHandler(async (req, res, next) => {
   });
 });
 
-// exports.getPopular = asyncHandler(async (req, res, next) => {
-//   const comics = await Comic.find({});
-//   console.log(comics);
-//   res.status(200).json({
-//     success: true,
-//     data: comics,
-//     details: errorSMS["200"]
-//   });
-// });
+exports.getPopular = asyncHandler(async (req, res, next) => {
+  const comics = await Comic.find({});
+  console.log(comics);
+  res.status(200).json({
+    success: true,
+    data: comics,
+    details: errorSMS["200"]
+  });
+});
 
 // exports.getRecent = asyncHandler(async (req, res, next) => {
 //   const comics = await Comic.find({}).sort("-updatedAt");
