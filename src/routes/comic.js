@@ -19,6 +19,7 @@ router.route("/recent").get(comicCtrl.getRecent)
 router.route("/popular").get(comicCtrl.getPopular);
 router.route("/like").get(advancedResults(LikeComic), comicCtrl.getLikeComic).post(comicCtrl.likeComic);
 router.route("/fav").get(advancedResults(UserFavComic), comicCtrl.getUSerFavComic).post(comicCtrl.addUserFavComic);
+router.route("/slide").get(comicCtrl.getComicSlide);
 
 router.use(authMid.protect);
 router.use(authMid.authorize("drawer"));

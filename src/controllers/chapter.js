@@ -7,6 +7,7 @@
 
 // Load personal modules
 const Chapter = require("../models/Chapter");
+const Comic = require('../models/Comic');
 const LikeChapter = require("../models/LikeChapter");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
@@ -36,6 +37,8 @@ exports.getChapters = asyncHandler(async (req, res, next) => {
   // @route    POST /api/v1/chapters
   // @access   Private/drawer
   exports.createChapter = asyncHandler(async (req, res, next) => {
+    //update comics in database
+    await Comic.findOneAndUpdate({"_id":req.body.id_comic}, { $set: {'updatedAt': Date.now()} });
     const chapter = await Chapter.create(req.body);
     res.status(201).json({
       success: true,
