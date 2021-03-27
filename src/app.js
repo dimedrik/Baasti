@@ -14,6 +14,7 @@ const helmet = require("helmet");
 const hpp = require("hpp");
 const morgan = require("morgan");
 const xss = require("xss-clean");
+const cron = require("node-cron");
 
 // Personal module imports
 const connectDB = require("./utils/database");
@@ -28,6 +29,7 @@ const comic = require("./routes/comic");
 const chapter = require("./routes/chapter");
 const page = require("./routes/page");
 const { MAIN_PATH_UPLOAD } = require("./utils/globals");
+const CronJob = require("./systemcron/cron.js");
 // Load env vars
 dotenv.config({
   path: "./config/config.env"
@@ -75,8 +77,17 @@ app.use(hpp());
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Mount routes
+//CronManager
+cronJob = new CronJob(cron);
+cronJob.compute();
 
+//test slide
+Slide = require("./systemcron/slide");
+
+//slide = new Slide();
+//slide.run();
+
+// Mount routes
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/upload", upload);

@@ -19,7 +19,7 @@ router
   .route("/")
   .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getComics)
   .post(comicCtrl.createComic);
-// router.route("/recent").get(comicCtrl.getRecent);
+router.route("/recent").get(comicCtrl.getRecent);
 router
   .route("/popular")
   .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getPopular);
@@ -31,7 +31,7 @@ router
   .route("/fav")
   .get(advancedResults(UserFavComic), comicCtrl.getUSerFavComic)
   .post(comicCtrl.addUserFavComic);
-
+router.route("/slide").get(comicCtrl.getComicSlide);
 router.use(authMid.authorize("drawer"));
 router
   .route("/:id")

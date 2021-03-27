@@ -7,6 +7,7 @@
 
 // Load personal modules
 const Comic = require("../models/Comic");
+const ComicSlide = require("../models/ComicSlide");
 const LikeComic = require("../models/LikeComic");
 const UserFavComic = require("../models/UserFavComic");
 const asyncHandler = require("../middlewares/async");
@@ -22,7 +23,7 @@ exports.getComics = asyncHandler(async (req, res, next) => {
 
 // @desc     Get single Comic strip
 // @route    GET /api/v1/comic/:id
-// @access   Private
+// @access   Everybody
 exports.getComic = asyncHandler(async (req, res, next) => {
   const comic = await Comic.findById(req.params.id).populate("comic_type", [
     "_id",
@@ -32,6 +33,20 @@ exports.getComic = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: comic,
+    details: errorSMS["200"]
+  });
+});
+
+// @desc     Get the most recent Comic Slide
+// @route    GET /api/v1/comic/slide
+// @access   Everybody
+exports.getComicSlide = asyncHandler(async (req, res, next) => {
+  const comicSlide = await ComicSlide.findOne()
+    .sort("-createdAt")
+    .populate("content.id_comic");
+  res.status(200).json({
+    success: true,
+    data: comicSlide.content,
     details: errorSMS["200"]
   });
 });
@@ -46,15 +61,24 @@ exports.getPopular = asyncHandler(async (req, res, next) => {
   });
 });
 
-// exports.getRecent = asyncHandler(async (req, res, next) => {
-//   const comics = await Comic.find({}).sort("-updatedAt");
-//   console.log(comics);
-//   res.status(200).json({
-//     success: true,
-//     data: comics,
-//     details: errorSMS["200"]
-//   });
-// });
+exports.getPopular = asyncHandler(async (req, res, next) => {
+  const comics = await Comic.find({});
+  console.log(comics);
+  res.status(200).json({
+    success: true,
+    data: comics,
+    details: errorSMS["200"]
+  });
+});
+
+exports.getRecent = asyncHandler(async (req, res, next) => {
+  const comics = await Comic.find({}).sort("-updatedAt");
+  res.status(200).json({
+    success: true,
+    data: comics,
+    details: errorSMS["200"]
+  });
+});
 
 // @desc     Create Comics strip
 // @route    POST /api/v1/comics
