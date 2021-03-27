@@ -21,6 +21,9 @@ router
   .post(comicCtrl.createComic);
 router.route("/recent").get(comicCtrl.getRecent);
 router
+  .route("/recentlyread")
+  .get(authMid.protect, comicCtrl.getRecentlyReadComic);
+router
   .route("/popular")
   .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getPopular);
 router

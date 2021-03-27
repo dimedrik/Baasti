@@ -10,6 +10,7 @@ const Comic = require("../models/Comic");
 const ComicSlide = require("../models/ComicSlide");
 const LikeComic = require("../models/LikeComic");
 const UserFavComic = require("../models/UserFavComic");
+const ReadChapter = require("../models/ReadChapter");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const { errorSMS } = require("../utils/globals");
@@ -30,6 +31,7 @@ exports.getComic = asyncHandler(async (req, res, next) => {
     "title",
     "color"
   ]);
+
   res.status(200).json({
     success: true,
     data: comic,
@@ -199,4 +201,26 @@ exports.addUserFavComic = asyncHandler(async (req, res, next) => {
       details: errorSMS["200"]
     });
   }
+});
+
+// @desc     Get recently read Comic
+// @route    GET /api/v1/comic/recentlyread
+// @access   Private
+exports.getRecentlyReadComic = asyncHandler(async (req, res, next) => {
+  const readChapterComicIds = await ReadChapter.find({ id_user: req.user._id })
+    .select("id_comic")
+    .sort("-createdAt");
+
+  const readChapterComicUniqueIds = Array.from(new Set(readChapterComicIds));
+
+  const readComics = await Comic.find({ _id: readChapterComicIds }).populate([
+    "comic_type",
+    "author"
+  ]);
+
+  res.status(200).json({
+    success: true,
+    data: readComics,
+    details: errorSMS["200"]
+  });
 });
