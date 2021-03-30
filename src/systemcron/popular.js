@@ -2,7 +2,7 @@
 const Comic = require("../models/Comic");
 const LikeChapter = require("../models/LikeChapter");
 const ReadChapter = require("../models/ReadChapter");
-const TmpSlide = require("../models/TmpSlide");
+const ViewedChapter = require("../models/TmpSlide");
 const ComicSlide = require("../models/ComicSlide");
 
 
@@ -20,10 +20,14 @@ class Slide{
         //Date
         let startDate = new Date();
         let endDate = new Date();
-        //Get nbrViews of all comic chapter
-        let nbrViews = await ReadChapter.find({"id_comic":comic.id,"createdAt":{$gte: startDate.setDate(startDate.getDate()-this.delta),$lt: endDate}}).count();
+        //Get nbrRead of all comic chapter
+        let nbrRead = await ReadChapter.find({"id_comic":comic.id,"createdAt":{$gte: startDate.setDate(startDate.getDate()-this.delta),$lt: endDate}}).count();
+
         //Get nbrLikes of all comic chapter
         let nbrLikes = await LikeChapter.find({"id_comic":comic.id,"createdAt":{$gte: startDate.setDate(startDate.getDate()-this.delta),$lt: endDate}}).count();
+        
+        //Get nbrView of all comic chapter
+        let nbrView = await ReadChapter.find({"id_comic":comic.id,"createdAt":{$gte: startDate.setDate(startDate.getDate()-this.delta),$lt: endDate}}).count();
 
         let score = this.computeScore(nbrViews,nbrLikes);
         this.storeScoreInDataBase(comic.id,score);

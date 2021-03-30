@@ -39,24 +39,33 @@ exports.getComics = asyncHandler(async (req, res, next) => {
   // @route    GET /api/v1/comic/slide
   // @access   Everybody
   exports.getComicSlide = asyncHandler(async (req, res, next) => {
-    const comicSlide = await ComicSlide.findOne().sort('-createdAt').populate('content.id_comic');
+    const comicSlide = await ComicSlide.findOne().sort('-createdAt').populate({
+        path: 'content.id_comic',
+        populate: {
+           path: 'comic_type',
+           model: 'ComicType'
+        }
+     });
     res.status(200).json({
       success: true,
-      data: comicSlide.content,
+      data: comicSlide?comicSlide.content:[],
       details: errorSMS["200"]
     });
   });
 
 
-
+  // @desc     Get popular Comic  
+  // @route    GET /api/v1/comic/popular
+  // @access   Everybody
   exports.getPopular = asyncHandler(async (req, res, next) =>{
-    const comics = await Comic.find({})
+    res.status(200).json(res.advancedResults);
+    /*const comics = await Comic.find({})
     console.log(comics)
     res.status(200).json({
       success: true,
       data: comics,
       details: errorSMS["200"]
-    });
+    });*/
   })
 
 
