@@ -82,10 +82,14 @@ cronJob = new CronJob(cron);
 cronJob.compute();
 
 //test slide
-Slide = require("./systemcron/slide");
-
+//Slide = require("./systemcron/slide");
 //slide = new Slide();
 //slide.run();
+
+//test Popular
+/*PopularComicJob = require("./systemcron/popular");
+popularComic = new PopularComicJob();
+popularComic.run();*/
 
 // Mount routes
 app.use("/api/v1/auth", auth);
