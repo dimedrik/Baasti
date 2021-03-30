@@ -1,7 +1,7 @@
 // Loading npm modules
 const mongoose = require("mongoose");
 
-const ReadChapterSchema = new mongoose.Schema({
+const ViewedChapterSchema = new mongoose.Schema({
   id_comic: {
     type: mongoose.Schema.ObjectId,
     ref: "Comic"
@@ -20,4 +20,4 @@ const ReadChapterSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("ReadChapter", ReadChapterSchema);
+module.exports = mongoose.model("ViewedChapter", ViewedChapterSchema);
