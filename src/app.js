@@ -23,25 +23,22 @@ const errorHandler = require("./middlewares/error");
 // Routes imports
 const auth = require("./routes/auth");
 const users = require("./routes/users");
-const upload = require('./routes/uploadroute');
-const comicType = require('./routes/comicType');
-const comic = require('./routes/comic');
-const chapter = require('./routes/chapter');
-const page = require('./routes/page');
-const {MAIN_PATH_UPLOAD} = require('./utils/globals');
-const CronJob = require('./systemcron/cron.js');
+const upload = require("./routes/uploadroute");
+const comicType = require("./routes/comicType");
+const comic = require("./routes/comic");
+const chapter = require("./routes/chapter");
+const page = require("./routes/page");
+const { MAIN_PATH_UPLOAD } = require("./utils/globals");
+const CronJob = require("./systemcron/cron.js");
 // Load env vars
 dotenv.config({
   path: "./config/config.env"
 });
 
-
-
-
 // Connect to database
 connectDB();
 const app = express();
-app.use("/admin", require("./utils/admin"))
+app.use("/admin", require("./utils/admin"));
 // Adding useful third party middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,8 +47,7 @@ app.use(cors());
 app.use(cookieParser());
 
 console.log(
-  `process.env.NODE_ENV: ${process.env.NODE_ENV}`
-    .cyan.underline.bold
+  `process.env.NODE_ENV: ${process.env.NODE_ENV}`.cyan.underline.bold
 );
 
 // Setting up morgan for request logging
@@ -95,10 +91,10 @@ Slide = require("./systemcron/slide");
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/upload", upload);
-app.use("/api/v1/comics_types",comicType);
-app.use("/api/v1/comics",comic);
-app.use("/api/v1/chapters",chapter);
-app.use("/api/v1/pages",page);
+app.use("/api/v1/comics_types", comicType);
+app.use("/api/v1/comics", comic);
+app.use("/api/v1/chapters", chapter);
+app.use("/api/v1/pages", page);
 app.use(express.static(MAIN_PATH_UPLOAD));
 
 app.use(errorHandler);
@@ -117,4 +113,4 @@ process.on("unhandledRejection", (err, promise) => {
   server.close(() => process.exit(1));
 });
 
-//Creation of pipeline for 
+//Creation of pipeline for

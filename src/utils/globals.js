@@ -20,6 +20,9 @@ exports.errorSMS = {
     message: "Mail for reseting your password has been sent successfully..."
   },
   106: { code: 106, message: "User successfully updated..." },
+  107: { code: 107, message: "Duplicate field value entered" },
+  // 108 taken
+  // 109 taken
   502: { code: 502, message: "Please select a file..." },
   501: { code: 501, message: "Please upload only an image file..." },
   503: { code: 503, message: "File uploaded successfully..." },
