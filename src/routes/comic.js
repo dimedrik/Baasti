@@ -22,7 +22,10 @@ router
 router.route("/recent").get(comicCtrl.getRecent);
 router
   .route("/recentlyread")
-  .get(authMid.protect, comicCtrl.getRecentlyReadComic);
+  .get(authMid.protect, comicCtrl.getRecentlyReadComics);
+router
+  .route("/recentlyviewed")
+  .get(authMid.protect, comicCtrl.getRecentlyViewedComics);
 router
   .route("/popular")
   .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getPopular);
@@ -36,10 +39,7 @@ router
   .post(comicCtrl.addUserFavComic);
 router.route("/slide").get(comicCtrl.getComicSlide);
 router.use(authMid.authorize("drawer"));
-router
-  .route("/:id")
-  .get(comicCtrl.getComic)
-  .put(comicCtrl.updateComic)
-  .delete(comicCtrl.deleteComic);
+router.route("/:id").get(comicCtrl.getComic);
+router.route("/:id").put(comicCtrl.updateComic).delete(comicCtrl.deleteComic);
 
 module.exports = router;

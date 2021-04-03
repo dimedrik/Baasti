@@ -11,9 +11,11 @@ const ComicSlide = require("../models/ComicSlide");
 const LikeComic = require("../models/LikeComic");
 const UserFavComic = require("../models/UserFavComic");
 const ReadChapter = require("../models/ReadChapter");
+const ViewedChapter = require("../models/ViewedChapter");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const { errorSMS } = require("../utils/globals");
+const { rawListeners } = require("../models/Comic");
 
 // @desc     Get all Comic strip
 // @route    GET /api/v1/comics
@@ -203,13 +205,14 @@ exports.addUserFavComic = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @desc     Get recently read Comic
+// @desc     Get recently read Comics
 // @route    GET /api/v1/comic/recentlyread
 // @access   Private
-exports.getRecentlyReadComic = asyncHandler(async (req, res, next) => {
-  const readChapterComicIds = await ReadChapter.find({ id_user: req.user._id })
-    .select("id_comic")
-    .sort("-createdAt");
+exports.getRecentlyReadComics = asyncHandler(async (req, res, next) => {
+  const readChapter = await ReadChapter.find({ id_user: req.user._id }).sort(
+    "-createdAt"
+  );
+  const readChapterComicIds = readChapter.map((elt) => elt.id_comic);
 
   const readChapterComicUniqueIds = Array.from(new Set(readChapterComicIds));
 
@@ -221,6 +224,31 @@ exports.getRecentlyReadComic = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: readComics,
+    details: errorSMS["200"]
+  });
+});
+
+// @desc     Get recently viewed Comics
+// @route    GET /api/v1/comic/recentlyviewed
+// @access   Private
+exports.getRecentlyViewedComics = asyncHandler(async (req, res, next) => {
+  console.log("Herrrrrrrrrrrrrrrrr");
+  const viewedChapters = await ViewedChapter.find({
+    id_user: req.user._id
+  }).sort("-createdAt");
+  const viewedChapterComicIds = viewedChapters.map((elt) => elt.id_comic);
+
+  const viewedChapterComicUniqueIds = Array.from(
+    new Set(viewedChapterComicIds)
+  );
+
+  const viewedComics = await Comic.find({
+    _id: viewedChapterComicIds
+  }).populate(["comic_type", "author"]);
+
+  res.status(200).json({
+    success: true,
+    data: viewedComics,
     details: errorSMS["200"]
   });
 });
