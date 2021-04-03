@@ -107,19 +107,37 @@ exports.getLikeChapter = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
-// @desc     Like Comic strip By user
+// @desc     Like Comic Chapter By user
 // @route    POST /api/v1/chapters/like
-// @access   Everyone
+// @access   Private
 exports.likeChapter = asyncHandler(async (req, res, next) => {
+  const likeChapterParams = {
+    id_chapter: req.body.id_chapter,
+    id_user: req.user._id
+  };
+
+  // Ensure that comic chapter exists before moving forward
+  const comicChapter = await Chapter.findById(req.body.id_chapter);
+
+  if (!comicChapter) {
+    next(
+      new ErrorResponse(
+        `Comic chapter with id ${req.body.id_chapter} not found`,
+        404
+      )
+    );
+  }
+
   //if the document already exists then remove, else create it.
-  const existance = await LikeChapter.exists(req.body);
+  const existance = await LikeChapter.exists(likeChapterParams);
+
   if (existance) {
     //Aggreger les données!!! decrementer
     await Chapter.findOneAndUpdate(
       { _id: req.body.id_chapter, num_of_likes: { $gt: 0 } },
       { $inc: { num_of_likes: -1 } }
     );
-    await LikeChapter.findOneAndDelete(req.body);
+    await LikeChapter.findOneAndDelete(likeChapterParams);
     res.status(200).json({
       success: true,
       data: {},
@@ -131,7 +149,7 @@ exports.likeChapter = asyncHandler(async (req, res, next) => {
       { _id: req.body.id_chapter },
       { $inc: { num_of_likes: 1 } }
     );
-    const likeChapter = await LikeChapter.create(req.body);
+    const likeChapter = await LikeChapter.create(likeChapterParams);
     res.status(201).json({
       success: true,
       data: likeChapter,
