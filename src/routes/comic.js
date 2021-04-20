@@ -15,7 +15,7 @@ const authMid = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.use(authMid.protect);
+//router.use(authMid.protect);
 router
   .route("/")
   .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getComics)
@@ -39,7 +39,7 @@ router
   .get(advancedResults(UserFavComic), comicCtrl.getUSerFavComic)
   .post(comicCtrl.addUserFavComic);
 router.route("/slide").get(comicCtrl.getComicSlide);
-router.use(authMid.authorize("drawer"));
+//router.use(authMid.authorize("drawer"));
 router.route("/:id").get(comicCtrl.getComic);
 router.route("/:id").put(comicCtrl.updateComic).delete(comicCtrl.deleteComic);
 
