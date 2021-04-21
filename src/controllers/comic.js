@@ -48,10 +48,9 @@ exports.getComic = asyncHandler(async (req, res, next) => {
   exports.getComicSlide = asyncHandler(async (req, res, next) => {
     const comicSlide = await ComicSlide.findOne().sort('-createdAt').populate({
         path: 'content.id_comic',
-        populate: {
-           path: 'comic_type',
-           model: 'ComicType'
-        }
+        populate: [
+        {path: 'comic_type',model: 'ComicType'},
+        {path: 'author',model: 'User'}]
      });
     res.status(200).json({
       success: true,

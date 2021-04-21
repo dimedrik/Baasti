@@ -29,7 +29,10 @@ router
   .get(authMid.protect, comicCtrl.getRecentlyViewedComics);
 router
    .route("/popular")
-   .get(advancedResults(PopularComic,{path: 'id_comic',populate: {path: 'comic_type',model: 'ComicType'}}),comicCtrl.getPopular);
+   .get(advancedResults(PopularComic,{path: 'id_comic',populate: 
+      [{path: 'comic_type',model: 'ComicType'},
+       {path: 'author',model: 'User'}]
+    }),comicCtrl.getPopular);
 router
   .route("/like")
   .get(advancedResults(LikeComic), comicCtrl.getLikeComic)
