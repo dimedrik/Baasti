@@ -126,15 +126,29 @@ exports.deleteComic = asyncHandler(async (req, res, next) => {
 
 // @desc     get like Comic strip By user, comics according to params
 // @route    GET /api/v1/comics/like
-// @access   Everyone
+// @access   Private
 exports.getLikeComic = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
 // @desc     Like Comic strip By user
 // @route    POST /api/v1/comics/like
-// @access   Everyone
+// @access   Private
 exports.likeComic = asyncHandler(async (req, res, next) => {
+  const likeComicParams = {
+    id_comic: req.body.id_comic,
+    id_user: req.user._id
+  };
+
+  // Ensure that comic exists before moving forward
+  const comic = await Comic.findById(req.body.id_comic);
+
+  if (!comic) {
+    next(
+      new ErrorResponse(`Comic with id ${req.body.id_chapter} not found`, 404)
+    );
+  }
+
   //if the document already exists then remove, else create it.
   const existance = await LikeComic.exists(req.body);
   if (existance) {
@@ -154,7 +168,7 @@ exports.likeComic = asyncHandler(async (req, res, next) => {
       { _id: req.body.id_comic },
       { $inc: { num_of_likes: 1 } }
     );
-    const likeComic = await LikeComic.create(req.body);
+    const likeComic = await LikeComic.create(likeComicParams);
     res.status(201).json({
       success: true,
       data: likeComic,

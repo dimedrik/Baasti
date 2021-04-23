@@ -31,15 +31,15 @@ router
   .get(advancedResults(Comic, ["comic_type", "author"]), comicCtrl.getPopular);
 router
   .route("/like")
-  .get(advancedResults(LikeComic), comicCtrl.getLikeComic)
-  .post(comicCtrl.likeComic);
+  .get(authMid.protect, advancedResults(LikeComic), comicCtrl.getLikeComic)
+  .post(authMid.protect, comicCtrl.likeComic);
 router
   .route("/fav")
   .get(advancedResults(UserFavComic), comicCtrl.getUSerFavComic)
   .post(comicCtrl.addUserFavComic);
 router.route("/slide").get(comicCtrl.getComicSlide);
-router.use(authMid.authorize("drawer"));
 router.route("/:id").get(comicCtrl.getComic);
+router.use(authMid.authorize("drawer"));
 router.route("/:id").put(comicCtrl.updateComic).delete(comicCtrl.deleteComic);
 
 module.exports = router;
