@@ -14,12 +14,12 @@ const ReadChapter = require("../models/ReadChapter");
 const ViewedChapter = require("../models/ViewedChapter");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
-const { errorSMS } = require("../utils/globals");
+const {errorSMS} = require("../utils/globals");
 const { rawListeners } = require("../models/Comic");
 
 // @desc     Get all Comic strip
 // @route    GET /api/v1/comics
-// @access   Private
+// @access   Everybody
 exports.getComics = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
@@ -41,39 +41,40 @@ exports.getComic = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc     Get the most recent Comic Slide
-// @route    GET /api/v1/comic/slide
-// @access   Everybody
-exports.getComicSlide = asyncHandler(async (req, res, next) => {
-  const comicSlide = await ComicSlide.findOne()
-    .sort("-createdAt")
-    .populate("content.id_comic");
-  res.status(200).json({
-    success: true,
-    data: comicSlide.content,
-    details: errorSMS["200"]
-  });
-});
 
-exports.getPopular = asyncHandler(async (req, res, next) => {
-  const comics = await Comic.find({});
-  console.log(comics);
-  res.status(200).json({
-    success: true,
-    data: comics,
-    details: errorSMS["200"]
+  // @desc     Get the most recent Comic Slide
+  // @route    GET /api/v1/comic/slide
+  // @access   Everybody
+  exports.getComicSlide = asyncHandler(async (req, res, next) => {
+    const comicSlide = await ComicSlide.findOne().sort('-createdAt').populate({
+        path: 'content.id_comic',
+        populate: {
+           path: 'comic_type',
+           model: 'ComicType'
+        }
+     });
+    res.status(200).json({
+      success: true,
+      data: comicSlide?comicSlide.content:[],
+      details: errorSMS["200"]
+    });
   });
-});
 
-exports.getPopular = asyncHandler(async (req, res, next) => {
-  const comics = await Comic.find({});
-  console.log(comics);
-  res.status(200).json({
-    success: true,
-    data: comics,
-    details: errorSMS["200"]
-  });
-});
+
+  // @desc     Get popular Comic
+  // @route    GET /api/v1/comic/popular
+  // @access   Everybody
+  exports.getPopular = asyncHandler(async (req, res, next) =>{
+    res.status(200).json(res.advancedResults);
+    /*const comics = await Comic.find({})
+    console.log(comics)
+    res.status(200).json({
+      success: true,
+      data: comics,
+      details: errorSMS["200"]
+    });*/
+  })
+
 
 exports.getRecent = asyncHandler(async (req, res, next) => {
   const comics = await Comic.find({}).sort("-updatedAt");

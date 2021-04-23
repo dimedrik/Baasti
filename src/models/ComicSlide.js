@@ -22,7 +22,7 @@ const ComicSlideSchema = new mongoose.Schema({
             default: 0
         },
         weight:{
-            type: Date,
+            type: Number,
             default: 1
         }
     }

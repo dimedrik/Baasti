@@ -46,14 +46,14 @@ exports.getComicTypes = asyncHandler(async (req, res, next) => {
   // @route    PUT /api/v1/comics_types/:id
   // @access   Private/Admin
   exports.updateComicType = asyncHandler(async (req, res, next) => {
-    const comicType = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const comicType = await ComicType.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
   
     res.status(200).json({
       success: true,
-      data: user,
+      data: comicType,
       details: errorSMS["200"]
     });
   });

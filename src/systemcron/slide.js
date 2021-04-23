@@ -36,7 +36,7 @@ class Slide{
      * @param {sum of number of likes per chap} nbrLikes 
      */
     computeScore(nbrViews,nbrLikes){
-        return (0.70*nbrViews + 0.3*nbrLikes);
+        return (0.6*nbrViews + 0.4*nbrLikes);
     }
 
     /**
@@ -51,14 +51,14 @@ class Slide{
             if(this.nbrComicSaved == this.nbrComic){
                 console.log("The last one...");
                 TmpSlide.find({}).sort('-score').limit(this.size).exec(function(err, slides) {
-                    let content = []
+                    let content = [];
                     slides.forEach(slide => {
-                        content.push({"id_comic":slide.id_comic,"score":slide.score,"weight":slide.weight})
+                        content.push({"id_comic":slide.id_comic,"score":slide.score,"weight":slide.weight});
                     });
                     ComicSlide.create({"content":content})
                     .then(() => {console.log(" successfully computed..");}).catch((error) => {
                         console.error("Error occured");
-                    })
+                    });
                  });
             }
         }).catch((error) => {
