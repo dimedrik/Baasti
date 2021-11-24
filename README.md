@@ -91,25 +91,3 @@ Private code. No reuse somewhere. *@copyrigth2020*
 ## Acknowledgments
 * Inspiration
 * etc
-
-{
-  "bind_address": "127.0.0.1",
-  "database": {
-    "user": "",
-    "password": "",
-    "connectionString": "mongodb://127.0.0.1:27017/code33129_db"
-  },
-  "jwt": {
-    "secret": "C@d@6@3",
-    "expire": "30d",
-    "cookie_expire": 30
-  },
-  "smtp": {
-    "host": "smtp.mailtrap.io",
-    "port": 2525,
-    "email": "",
-    "password": "",
-    "from_email": "noreply@code33129.io",
-    "from_name": "Code33129"
-  }
-}
